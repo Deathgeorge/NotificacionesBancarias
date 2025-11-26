@@ -1,5 +1,6 @@
 package com.asturias.patrones.notificacionesbancarias.transaccion;
 
+import com.asturias.patrones.notificacionesbancarias.logger.LoggerService;
 import com.asturias.patrones.notificacionesbancarias.model.User;
 import com.asturias.patrones.notificacionesbancarias.observador.Observador;
 import com.asturias.patrones.notificacionesbancarias.observador.Sujeto;

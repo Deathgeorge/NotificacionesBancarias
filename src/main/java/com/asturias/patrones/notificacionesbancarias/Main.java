@@ -1,25 +1,18 @@
 package com.asturias.patrones.notificacionesbancarias;
 
+import com.asturias.patrones.notificacionesbancarias.logger.LoggerService;
 import com.asturias.patrones.notificacionesbancarias.model.User;
 import com.asturias.patrones.notificacionesbancarias.tipoNotificacionImpl.Email;
+import com.asturias.patrones.notificacionesbancarias.tipoNotificacionImpl.NoficacionFactory;
 import com.asturias.patrones.notificacionesbancarias.tipoNotificacionImpl.Push;
 import com.asturias.patrones.notificacionesbancarias.tipoNotificacionImpl.SMS;
-import com.asturias.patrones.notificacionesbancarias.tipoNotificacionImpl.creador.CreadorEMail;
-import com.asturias.patrones.notificacionesbancarias.tipoNotificacionImpl.creador.CreadorNotificacion;
-import com.asturias.patrones.notificacionesbancarias.tipoNotificacionImpl.creador.CreadorPush;
-import com.asturias.patrones.notificacionesbancarias.tipoNotificacionImpl.creador.CreadorSMS;
-import com.asturias.patrones.notificacionesbancarias.transaccion.Consignacion;
-import com.asturias.patrones.notificacionesbancarias.transaccion.EstrategiaTransaccion;
-import com.asturias.patrones.notificacionesbancarias.transaccion.Retiro;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.asturias.patrones.notificacionesbancarias.transaccion.*;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class Main {
 
-    private static final Logger logger = LogManager.getLogger(Main.class);
 
 
     public static void main(String[] args){
@@ -27,19 +20,18 @@ public class Main {
         boolean ejecutando = true;
 
 
-        CreadorNotificacion creadorNotificacionMail = new CreadorEMail();
-        Notificacion notEmail =  creadorNotificacionMail.crearNotificacion();
+        NotificacionTransaccion notificador = new NotificacionTransaccion();
+
+        Notificacion notEmail =  NoficacionFactory.crearNotificacion("EMAIL");
         Email notiEmail = (Email) notEmail;
-        CreadorNotificacion creadorNotificacionPush = new CreadorPush();
-        Notificacion notPush = creadorNotificacionPush.crearNotificacion();
+        Notificacion notPush = NoficacionFactory.crearNotificacion("PUSH");
         Push notiPush = (Push) notPush;
-        CreadorNotificacion creadorNotificacion = new CreadorSMS();
-        Notificacion notSMS = creadorNotificacion.crearNotificacion();
+        Notificacion notSMS = NoficacionFactory.crearNotificacion("SMS");
         SMS notiSMS = (SMS) notSMS;
 
 
         Scanner scanner = new Scanner(System.in);
-        logger.info("Bienvenido a las Notificaciones Bancarias Jorge Castro");
+        LoggerService.getInstance().info("Bienvenido a las Notificaciones Bancarias Jorge Castro");
         System.out.println("Bienvenido a las Notificaciones Bancarias Jorge Castro");
 
         System.out.println("Ingresa tu nombre");
@@ -56,7 +48,7 @@ public class Main {
         int opc;
         int opcNot;
 
-        EstrategiaTransaccion tx = new EstrategiaTransaccion();
+        GestorTransacciones tx = new GestorTransacciones();
         while (ejecutando){
             System.out.println("Que accion desea realizar:");
             System.out.println("1. Retirar:");
@@ -72,6 +64,7 @@ public class Main {
 
                     tx.setEstrategia(new Retiro());
                     tx.ejecutar(amountTrans, usuario);
+                    notificador.notificarObservadores(amountTrans, usuario);
                     break;
                 case 2:
 
@@ -92,22 +85,22 @@ public class Main {
                     opcNot = scanner.nextInt();
                     switch (opcNot){
                         case 1:
-                            tx.agregarObservador(notiSMS);
+                            notificador.agregarObservador(notiSMS);
                             break;
                         case 2:
-                            tx.eliminarObservador(notiSMS);
+                            notificador.eliminarObservador(notiSMS);
                             break;
                         case 3:
-                            tx.agregarObservador(notiEmail);
+                            notificador.agregarObservador(notiEmail);
                             break;
                         case 4:
-                            tx.eliminarObservador(notiEmail);
+                            notificador.eliminarObservador(notiEmail);
                             break;
                         case 5:
-                            tx.agregarObservador(notiPush);
+                            notificador.agregarObservador(notiPush);
                             break;
                         case 6:
-                            tx.eliminarObservador(notiPush);
+                            notificador.eliminarObservador(notiPush);
                             break;
                         case 7:
                             System.out.println("Volver al menu anterior");
@@ -125,7 +118,6 @@ public class Main {
             System.out.println("tu cuenta tiene --- >" + usuario.getAmount());
         }
 
-//        notEmail.enviar("Retiraste " + usuario.getAmount());
 
 
 
