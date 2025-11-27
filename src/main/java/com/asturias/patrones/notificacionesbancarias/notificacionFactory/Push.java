@@ -1,6 +1,5 @@
-package com.asturias.patrones.notificacionesbancarias.tipoNotificacionImpl;
+package com.asturias.patrones.notificacionesbancarias.notificacionFactory;
 
-import com.asturias.patrones.notificacionesbancarias.Notificacion;
 import com.asturias.patrones.notificacionesbancarias.model.User;
 import com.asturias.patrones.notificacionesbancarias.observador.Observador;
 

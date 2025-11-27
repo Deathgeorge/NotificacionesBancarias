@@ -1,6 +1,4 @@
-package com.asturias.patrones.notificacionesbancarias.tipoNotificacionImpl;
-
-import com.asturias.patrones.notificacionesbancarias.Notificacion;
+package com.asturias.patrones.notificacionesbancarias.notificacionFactory;
 
 public class NoficacionFactory {
     public static Notificacion crearNotificacion(String tipo) {

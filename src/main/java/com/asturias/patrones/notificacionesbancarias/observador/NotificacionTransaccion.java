@@ -1,4 +1,4 @@
-package com.asturias.patrones.notificacionesbancarias.transaccion;
+package com.asturias.patrones.notificacionesbancarias.observador;
 
 import com.asturias.patrones.notificacionesbancarias.model.User;
 import com.asturias.patrones.notificacionesbancarias.observador.Observador;

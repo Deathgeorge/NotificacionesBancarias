@@ -2,10 +2,8 @@ package com.asturias.patrones.notificacionesbancarias;
 
 import com.asturias.patrones.notificacionesbancarias.logger.LoggerService;
 import com.asturias.patrones.notificacionesbancarias.model.User;
-import com.asturias.patrones.notificacionesbancarias.tipoNotificacionImpl.Email;
-import com.asturias.patrones.notificacionesbancarias.tipoNotificacionImpl.NoficacionFactory;
-import com.asturias.patrones.notificacionesbancarias.tipoNotificacionImpl.Push;
-import com.asturias.patrones.notificacionesbancarias.tipoNotificacionImpl.SMS;
+import com.asturias.patrones.notificacionesbancarias.notificacionFactory.*;
+import com.asturias.patrones.notificacionesbancarias.observador.NotificacionTransaccion;
 import com.asturias.patrones.notificacionesbancarias.transaccion.*;
 
 import java.math.BigDecimal;
