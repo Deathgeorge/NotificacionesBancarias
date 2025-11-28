@@ -1,8 +1,6 @@
 package com.asturias.patrones.notificacionesbancarias.observador;
 
 import com.asturias.patrones.notificacionesbancarias.model.User;
-import com.asturias.patrones.notificacionesbancarias.observador.Observador;
-import com.asturias.patrones.notificacionesbancarias.observador.Sujeto;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

@@ -41,13 +41,15 @@ public class Main {
 
         User usuario = new User(nameUser, numberAccount);
 
-        System.out.println("tu cuenta tiene --- >" + usuario.getAmount());
         BigDecimal amountTrans;
         int opc;
         int opcNot;
 
         GestorTransacciones tx = new GestorTransacciones();
         while (ejecutando){
+
+            System.out.println("tu cuenta tiene --- >" + usuario.getAmount());
+
             System.out.println("Que accion desea realizar:");
             System.out.println("1. Retirar:");
             System.out.println("2. Consignar:");
@@ -70,6 +72,7 @@ public class Main {
                     amountTrans = scanner.nextBigDecimal();
                     tx.setEstrategia(new Consignacion());
                     tx.ejecutar(amountTrans, usuario);
+                    notificador.notificarObservadores(amountTrans, usuario);
                     break;
                 case 3:
                     System.out.println("Que accion desea realizar:");
@@ -113,7 +116,6 @@ public class Main {
             }
 
 
-            System.out.println("tu cuenta tiene --- >" + usuario.getAmount());
         }
 
 
